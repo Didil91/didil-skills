@@ -27,6 +27,8 @@ Règles de base valables dans tous les projets.
 - Exceptions : un modèle de domaine (le concept qu'il représente, jamais la classe qui l'implémente) ; une méthode de service importante dont le pourquoi ne se lit pas dans le code.
 - Dans ces cas : le pourquoi, une ligne courte.
 - Documentation XML (`/// <summary>`) seulement sur ce qui est consommé hors du projet : bibliothèque partagée, API publique.
+- Nommage métier : le code parle le vocabulaire du domaine. Pas de noms génériques (`data`, `result`, `obj`, `temp`), des verbes d'intention (`ApproveTransaction`, pas `Process`/`Handle`/`Do`), pas d'abréviations (`cancellationToken`, pas `ct`).
+- Exception : le code de pattern répété garde le nommage commun du pattern ; la cohérence entre occurrences prime.
 - Un nom de méthode dit exactement ce qu'elle fait : un Set ne lit ni ne valide.
 - Pas de préfixe Try, sauf l'idiome TryParse avec paramètre out.
 - Pas d'appel imbriqué en argument : extraire dans une variable avant l'appel.
