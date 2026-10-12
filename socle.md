@@ -17,6 +17,10 @@ Règles de base valables dans tous les projets.
 - Avant d'agir dans un autre repo que celui de la session (git, fichiers), lire ses règles (`CLAUDE.md`, `.claude/`).
 - Discussion d'architecture : pas de code, rester en prose tant que le design n'est pas validé.
 
+## Méthode
+- Spec avant code : workflow SDD (skill `workflow-sdd`, sur superpowers).
+- TDD : un test qui échoue d'abord, puis le code minimal qui le fait passer, puis le refactor (`superpowers:test-driven-development`).
+
 ## Git
 - Jamais de commit sur une branche de l'utilisateur sans son accord explicite pour ce commit précis.
 - Exception : sur une branche de travail d'agent (`sdd/…`, voir workflow-sdd), commits libres, jamais poussés.
@@ -34,7 +38,11 @@ Règles de base valables dans tous les projets.
 - Pas de préfixe Try, sauf l'idiome TryParse avec paramètre out.
 - Pas d'appel imbriqué en argument : extraire dans une variable avant l'appel.
 - Valeur métier finie = enum, pas des constantes string ; conversion en chaîne seulement au bord.
+- Exception front : un état d'interface propre au front (étape d'écran, onglet) est une union de chaînes ; l'enum reste pour une valeur métier, miroir de l'enum back.
 - Aligner les valeurs des deux côtés plutôt que convertir : un ToString().ToLower() au point d'usage est une alarme.
 - Pas de préfixe de marque dans les noms.
 - Composed Method : une méthode publique se lit comme une suite d'étapes nommées, au même niveau d'abstraction ; le détail descend dans des méthodes privées.
 - Step-down : les méthodes appelées sont placées juste sous leur appelant, dans l'ordre d'appel.
+
+## Front
+- Aucun appel API ni logique de données dans un composant d'affichage. L'accès aux données passe par une couche dédiée : service ou façade en Angular, custom hook (`useXxx`) en React / React Native. Le composant consomme l'état et déclenche des actions nommées.
