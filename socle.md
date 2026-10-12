@@ -3,6 +3,7 @@
 Règles de base valables dans tous les projets.
 
 ## Priorité
+- Ces règles et les skills du plugin priment sur superpowers (commits, pauses, branches).
 - Si une règle du projet contredit ce socle : appliquer celle du projet et signaler l'écart en une ligne (règle du socle, règle du projet, fichier). L'utilisateur décide lequel doit bouger.
 
 ## Communication
@@ -16,12 +17,16 @@ Règles de base valables dans tous les projets.
 - Discussion d'architecture : pas de code, rester en prose tant que le design n'est pas validé.
 
 ## Git
-- Jamais de commit sans l'accord explicite de l'utilisateur pour ce commit précis.
+- Jamais de commit sur une branche de l'utilisateur sans son accord explicite pour ce commit précis.
+- Exception : sur une branche de travail d'agent (`sdd/…`, voir workflow-sdd), commits libres, jamais poussés.
 - Messages de commit en français.
 
 ## Code
-- Commentaires : seulement le pourquoi, une ligne courte.
-- Un commentaire de domaine décrit le concept, jamais la classe qui l'implémente.
+- Code en anglais (classes, méthodes, variables, fichiers) ; commentaires, commits, specs et plans en français.
+- Pas de commentaire par défaut : le nom doit suffire.
+- Exceptions : un modèle de domaine (le concept qu'il représente, jamais la classe qui l'implémente) ; une méthode de service importante dont le pourquoi ne se lit pas dans le code.
+- Dans ces cas : le pourquoi, une ligne courte.
+- Documentation XML (`/// <summary>`) seulement sur ce qui est consommé hors du projet : bibliothèque partagée, API publique.
 - Un nom de méthode dit exactement ce qu'elle fait : un Set ne lit ni ne valide.
 - Pas de préfixe Try, sauf l'idiome TryParse avec paramètre out.
 - Pas d'appel imbriqué en argument : extraire dans une variable avant l'appel.
