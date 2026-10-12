@@ -12,6 +12,9 @@ S'appuie sur superpowers (7.x). Ce skill prime sur superpowers pour les points c
 - Rédigés en français ; noms de classes, méthodes et fichiers en anglais.
 - La spec et le plan ne sont pas commités d'office : ils suivent la règle des commits ci-dessous.
 
+## Analyse d'impact
+- Changement transverse ou à risque (migration, authentification, API publique, mise en production) : skill `change-impact` avant d'écrire le plan.
+
 ## Lots
 - Le plan regroupe les tâches en lots. Un lot compile, ses tests passent, et il se relit d'un bloc.
 - Petits lots par défaut : 1 à 3 tâches. Le découpage est validé par l'utilisateur avec le plan.
@@ -27,12 +30,13 @@ S'appuie sur superpowers (7.x). Ce skill prime sur superpowers pour les points c
 
 ## Fin de lot
 1. Revenir sur la branche de l'utilisateur et y rapatrier le lot sans commit : `git merge --squash sdd/<plan>`.
-2. Relecture tâche par tâche, une tâche par message : ce qui a été fait, impacts, choix pris sans l'utilisateur, choix qui lui restent.
-3. Proposer les commits, chacun avec un tableau Fichier / Changement / Pourquoi tiré de `git diff --cached` et un message en français.
+2. Lancer l'agent `silent-failure-hunter` sur le diff du lot ; ses constats entrent dans la relecture. Lot transverse ou à risque : vérification « après l'implémentation » de `change-impact`.
+3. Relecture tâche par tâche, une tâche par message : ce qui a été fait, impacts, choix pris sans l'utilisateur, choix qui lui restent.
+4. Proposer les commits, chacun avec un tableau Fichier / Changement / Pourquoi tiré de `git diff --cached` et un message en français.
    - Une migration est toujours un commit à part : modèle, configuration éventuelle, fichiers de migration.
    - Un commit ne mélange pas deux sujets.
-4. Commiter uniquement ce que l'utilisateur valide, commit par commit.
-5. Supprimer `sdd/<plan>` avec son accord ; le lot suivant repart de sa branche à jour.
+5. Commiter uniquement ce que l'utilisateur valide, commit par commit.
+6. Supprimer `sdd/<plan>` avec son accord ; le lot suivant repart de sa branche à jour.
 
 ## Écarts relevés en revue
 Pour chaque écart, proposer où le corriger à la source : la spec, ou une règle dans le skill concerné du plugin.

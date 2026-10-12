@@ -1,6 +1,9 @@
 {
   "name": "didil-skills",
-  "owner": { "name": "didil91" },
+  "description": "Règles de dev didil91 pour Claude Code.",
+  "owner": {
+    "name": "didil91"
+  },
   "plugins": [
     {
       "name": "adil",
