@@ -13,14 +13,18 @@ Mise à jour : `/plugin marketplace update didil-skills`.
 
 ## Partager avec un projet
 
-Dans le `.claude/settings.json` commité du projet, pour que tout collaborateur se voie proposer le plugin :
+Dans le `.claude/settings.json` commité du projet, pour que tout collaborateur se voie proposer le plugin et superpowers (dont dépend `workflow-sdd`) :
 
 ```json
 {
   "extraKnownMarketplaces": {
-    "didil-skills": { "source": { "source": "github", "repo": "didil91/didil-skills" } }
+    "didil-skills": { "source": { "source": "github", "repo": "Didil91/didil-skills" } },
+    "superpowers-marketplace": { "source": { "source": "github", "repo": "obra/superpowers-marketplace" } }
   },
-  "enabledPlugins": { "adil@didil-skills": true }
+  "enabledPlugins": {
+    "adil@didil-skills": true,
+    "superpowers@superpowers-marketplace": true
+  }
 }
 ```
 

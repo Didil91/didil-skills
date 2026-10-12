@@ -14,6 +14,7 @@ Règles de base valables dans tous les projets.
 - Vérifier la vraie cause avant d'affirmer. Une piste non vérifiée se coupe, elle ne se nuance pas.
 - Avant de changer une valeur réglée (cache, timeout…), lire son historique : `git log -S`.
 - Pas de bidouillage : un contournement ou une réimplémentation de librairie, on s'arrête et on le dit.
+- Avant d'agir dans un autre repo que celui de la session (git, fichiers), lire ses règles (`CLAUDE.md`, `.claude/`).
 - Discussion d'architecture : pas de code, rester en prose tant que le design n'est pas validé.
 
 ## Git
