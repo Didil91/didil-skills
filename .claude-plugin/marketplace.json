@@ -1,0 +1,11 @@
+{
+  "name": "didil-skills",
+  "owner": { "name": "didil91" },
+  "plugins": [
+    {
+      "name": "adil",
+      "source": "./",
+      "description": "Règles de dev didil91 : socle, style de code, skills par domaine, agents."
+    }
+  ]
+}
