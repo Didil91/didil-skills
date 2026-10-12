@@ -9,7 +9,9 @@ Plugin Claude Code `adil` : règles de dev (socle toujours chargé, skills par d
 /plugin install adil@didil-skills
 ```
 
-Mise à jour : `/plugin marketplace update didil-skills`.
+Mise à jour : `/plugin marketplace update didil-skills`, puis `/plugin update adil@didil-skills` et `/reload-plugins`.
+
+À chaque modification poussée, incrémenter `version` dans `.claude-plugin/plugin.json` : sans nouveau numéro, `/plugin update` garde l'ancienne copie.
 
 ## Partager avec un projet
 
