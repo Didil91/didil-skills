@@ -24,7 +24,10 @@ Règles de base valables dans tous les projets.
 ## Git
 - Jamais de commit sur une branche de l'utilisateur sans son accord explicite pour ce commit précis.
 - Exception : sur une branche de travail d'agent (`sdd/…`, voir workflow-sdd), commits libres, jamais poussés.
-- Messages de commit en français.
+- Messages de commit en français, au format `[Scope] Sujet : ce qui change`.
+  - Scope = la zone du projet touchée, un seul par commit : `[API]`, `[Mobile]`, `[Site]`, `[Auth]`, `[Doc]`… La liste propre au projet se lit dans son historique (`git log`) ou son `CLAUDE.md`.
+  - Pas de préfixe Conventional Commits (`feat:`, `fix:`, `docs(…):`).
+  - Titre : une phrase sur l'effet, pas sur le fichier. Corps facultatif : le pourquoi, en prose ou en liste courte.
 
 ## Code
 - Code en anglais (classes, méthodes, variables, fichiers) ; commentaires, commits, specs et plans en français.
