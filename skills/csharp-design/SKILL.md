@@ -27,6 +27,8 @@ services.AddQueueStorage(
 
 ## Async
 - Jamais `.Result` ni `.GetAwaiter().GetResult()` : toujours `await`.
+- Pas d'élision : une méthode qui appelle de l'async est `async` et fait `await` ; elle ne renvoie pas directement la `Task` d'un autre appel (trace d'appel perdue, exception levée au mauvais moment, `using` libéré trop tôt).
+- Jamais `Task.FromResult` pour satisfaire une signature : la méthode devient `async`.
 - Event handler à signature `void` : `async void` qui délègue à une méthode `async Task`.
 
 ## ViewModels
