@@ -20,10 +20,11 @@ var sponsorship = await dbContext.Sponsorships
 ```
 
 ## Concurrence
-- Repérer le motif lire → calculer depuis l'ancienne valeur → réécrire, sur une entité modifiable par plusieurs acteurs (requêtes parallèles, job de fond, plusieurs utilisateurs). Le signaler, puis proposer :
-  - un calcul simple : mise à jour atomique, `ExecuteUpdateAsync(s => s.SetProperty(x => x.Amount, x => x.Amount + credit))` ;
-  - une logique plus complexe : concurrence optimiste `RowVersion` (`.IsRowVersion()`) et `DbUpdateConcurrencyException` traitée explicitement.
-- Doublons : index unique en base, pas un contrôle applicatif.
+- Repérer le motif lire → calculer depuis l'ancienne valeur → réécrire, quand plusieurs acteurs peuvent agir en même temps (requêtes parallèles, job de fond, plusieurs utilisateurs). Le signaler, puis choisir dans cet ordre :
+  1. **Contrainte en base** quand la règle s'y exprime : index unique (doublons), `CHECK`. Jamais un contrôle applicatif à la place ; la violation (PostgreSQL `23505`) devient une erreur métier.
+  2. **Mise à jour atomique** pour un calcul simple sur une ligne (compteur, solde) : `ExecuteUpdateAsync(s => s.SetProperty(x => x.Amount, x => x.Amount + credit))`.
+  3. **Concurrence optimiste** pour une fiche modifiée par plusieurs personnes : `RowVersion` (`.IsRowVersion()`, `xmin` sous PostgreSQL) et `DbUpdateConcurrencyException` traitée explicitement (« modifiée entre-temps, rechargez »).
+  4. **Verrou pessimiste** quand la règle porte sur plusieurs lignes (ex. « au moins un administrateur par organisation ») : transaction + `SELECT … FOR UPDATE` sur le groupe de lignes, puis relecture avant de décider. Section verrouillée la plus courte possible. La concurrence optimiste ne protège pas ce cas : chaque acteur modifie une ligne différente.
 
 ## Modèle
 - Toute propriété `decimal` a une précision explicite : `decimal(18,2)` pour un montant, davantage de décimales pour un taux ou un pourcentage.
