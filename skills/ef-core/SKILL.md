@@ -10,6 +10,7 @@ Complète `csharp-design` (LINQ, nullable) avec ce qui est propre à l'accès au
 ## Requêtes
 - Lecture : `AsNoTracking()`, projection dans le `Select` (`new { }` ou ViewModel). Jamais l'entité complète chargée puis mappée en mémoire.
 - Entité complète chargée uniquement pour un update.
+- Une ligne attendue : `FirstOrDefaultAsync()`, pas `Single*` ; l'absence se traite explicitement (`?? throw`, `NotFound()`). L'unicité, c'est un index unique en base.
 
 ```csharp
 var sponsorship = await dbContext.Sponsorships
