@@ -22,21 +22,20 @@ S'appuie sur superpowers (7.x). Ce skill prime sur superpowers pour les points c
 
 ## Branches
 - L'utilisateur travaille sur une seule branche. Pas de worktree, sauf demande.
-- Chaque lot s'exécute sur une branche de travail `sdd/<plan>` créée depuis la branche de l'utilisateur. Les commits y sont libres (superpowers en a besoin pour ses revues et son journal) et ne sont jamais poussés.
+- Chaque lot s'exécute sur une branche de travail `sdd/<plan>` créée depuis la branche de l'utilisateur. Les commits y sont libres et jamais poussés.
+- Ces commits sont déjà les commits finaux : propres, un sujet par commit, message en français. Une migration est toujours un commit à part : modèle, configuration éventuelle, fichiers de migration.
 
 ## Exécution
-- Les tâches d'un lot s'enchaînent sans pause. Arrêt obligatoire en fin de lot, en plus des arrêts prévus par superpowers.
+- Les tâches d'un lot s'enchaînent sans pause ni question. Arrêt obligatoire en fin de lot, en plus des arrêts prévus par superpowers.
+- Arrêt immédiat, même en cours de lot, si le plan a un gros trou ou si la solution impose un changement d'architecture non prévu : exposer le problème et les options, attendre la décision.
 - Chaque décision prise seul est notée dans le journal (`Ruling:`) ; elle sera remontée en revue.
 
 ## Fin de lot
-1. Revenir sur la branche de l'utilisateur et y rapatrier le lot sans commit : `git merge --squash sdd/<plan>`.
-2. Lancer l'agent `silent-failure-hunter` sur le diff du lot ; ses constats entrent dans la relecture. Lot transverse ou à risque : vérification « après l'implémentation » de `change-impact`.
-3. Relecture tâche par tâche, une tâche par message : ce qui a été fait, impacts, choix pris sans l'utilisateur, choix qui lui restent.
-4. Proposer les commits, chacun avec un tableau Fichier / Changement / Pourquoi tiré de `git diff --cached` et un message en français.
-   - Une migration est toujours un commit à part : modèle, configuration éventuelle, fichiers de migration.
-   - Un commit ne mélange pas deux sujets.
-5. Commiter uniquement ce que l'utilisateur valide, commit par commit.
-6. Supprimer `sdd/<plan>` avec son accord ; le lot suivant repart de sa branche à jour.
+1. Lancer l'agent `silent-failure-hunter` sur le diff du lot ; ses constats entrent dans la relecture. Lot transverse ou à risque : vérification « après l'implémentation » de `change-impact`.
+2. Un seul message de relecture, structuré par tâche : ce qui a été fait, impacts, choix pris sans l'utilisateur, choix qui lui restent. L'utilisateur creuse une tâche s'il le souhaite.
+3. Dans le même message, tous les commits du lot, chacun avec un tableau Fichier / Changement / Pourquoi tiré de `git show` et son message. L'utilisateur valide en une fois ou raye ce qui ne va pas.
+4. Après accord, rapatrier les commits tels quels sur la branche de l'utilisateur (`git merge --ff-only sdd/<plan>`, ou `git cherry-pick` des commits validés). Pas de squash : l'historique relu est celui qui est livré.
+5. Supprimer `sdd/<plan>` ; le lot suivant repart de la branche de l'utilisateur à jour.
 
 ## Écarts relevés en revue
 Pour chaque écart, proposer où le corriger à la source : la spec, ou une règle dans le skill concerné du plugin.
